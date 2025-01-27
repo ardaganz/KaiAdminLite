@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hitung File</title>
+</head>
+<body>
+  <div>
+    <h1>Hitung Jumlah dan Ukuran File</h1>
+    <input type="file" id="fileInput" multiple>
+    <button id="hitungFile">Hitung File</button>
+    <div id="hasil"></div>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+const hitungFileBtn = document.getElementById('hitungFile');
+const hasilDiv = document.getElementById('hasil');
+
+hitungFileBtn.addEventListener('click', () => {
+ if (fileInput.files.length === 0) {
+ alert('Pilih file terlebih dahulu!');
+ return;
+ }
+
+ const files = fileInput.files;
+ const jumlahFile = files.length;
+ const ukuranTotal = getTotalSize(files);
+ const jenisFile = getJenisFile(files);
+
+ hasilDiv.innerHTML = `
+ <p>Jumlah File: ${jumlahFile}</p>
+ <p>Ukuran Total: ${formatBytes(ukuranTotal)}</p>
+ <h2>Jenis File:</h2>
+ <ul>
+ ${jenisFile.map((jenis) => `<li>${jenis.nama}: ${jenis.jumlah} (${formatBytes(jenis.ukuran)})</li>`).join('')}
+ </ul>
+ `;
+});
+
+function getTotalSize(files) {
+ let total = 0;
+ for (const file of files) {
+ total += file.size;
+ }
+ return total;
+}
+
+function getJenisFile(files) {
+ const jenisFile = {};
+ for (const file of files) {
+ const jenis = file.type.split('/')[0];
+ if (!jenisFile[jenis]) {
+ jenisFile[jenis] = { nama: jenis, jumlah: 0, ukuran: 0 };
+ }
+ jenisFile[jenis].jumlah++;
+ jenisFile[jenis].ukuran += file.size;
+ }
+ return Object.values(jenisFile);
+}
+
+function formatBytes(bytes) {
+ const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+ if (bytes === 0) return '0 B';
+ const i = Math.floor(Math.log(bytes) / Math.log(1024));
+ return `${(bytes / Math.pow(1024, i)).toFixed(2)} ${sizes[i]}`;
+}
+  </script>
+</body>
+</html>

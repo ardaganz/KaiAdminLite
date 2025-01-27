@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Translator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Pilih Bahasa:</h2>
+
+        <!-- Tombol Translate -->
+        <button class="translate-btn" onclick="toggleTranslation()">
+            <i class="fas fa-language"></i> Translate
+        </button>
+
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active">
+                            <h4 class="card-title mb-4" data-translate="general_questions">General Questions</h4>
+                            
+                            <div class="faq-box d-flex mb-3">
+                                <div class="flex-shrink-0 me-3 faq-icon">
+                                    <i class="fa fa-question font-size-20 text-success"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h5 class="font-size-15" data-translate="q1">What is Lorem Ipsum?</h5>
+                                    <p class="text-muted" data-translate="a1">New common language will be more simple and regular than the existing European languages.</p>
+                                </div>
+                            </div>
+
+                            <div class="faq-box d-flex mb-3">
+                                <div class="flex-shrink-0 me-3 faq-icon">
+                                    <i class="fa fa-question font-size-20 text-success"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h5 class="font-size-15" data-translate="q2">Where does it come from?</h5>
+                                    <p class="text-muted" data-translate="a2">Everyone realizes why a new common language would be desirable.</p>
+                                </div>
+                            </div>
+
+                            <div class="faq-box d-flex mb-3">
+                                <div class="flex-shrink-0 me-3 faq-icon">
+                                    <i class="fa fa-question font-size-20 text-success"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h5 class="font-size-15" data-translate="q3">Where can I get some?</h5>
+                                    <p class="text-muted" data-translate="a3">If several languages coalesce, the grammar becomes more simple and regular.</p>
+                                </div>
+                            </div>
+                        </div> <!-- End tab-pane -->
+                    </div> <!-- End tab-content -->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+const translations = {
+	judul_atas: "Faqs",
+	JudulAbout: "About",
+	JudulPrivacy: "Privacy Policy",
+	JudulSupport: "Support",
+	
+    general_questions: "General Questions",
+        q1: "What is Lorem Ipsum?",
+        a1: "New common language will be more simple and regular than the existing European languages. It will be as simple as occidental.",
+        q2: "Where does it come from?",
+        a2: "Everyone realizes why a new common language would be desirable one could refuse to pay expensive translators.",
+        q3: "Where can I get some?",
+        a3: "If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages.",
+        q4: "Why do we use it?",
+        a4: "Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary.",
+        q5: "Where can I get some?",
+        a5: "To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental",    
+    privacy_policy: "Privacy Policy",
+        p1: "Where does it come from?",
+        b1: "Everyone realizes why a new common language would be desirable one could refuse to pay expensive translators.",
+        p2: "Where can I get some?",
+        b2: "To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental",
+        p3: "What is Lorem Ipsum?",
+        b3: "New common language will be more simple and regular than the existing European languages. It will be as simple as occidental.",
+        p4: "Why do we use it?",
+        b4: "Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary.",
+        p5: "Where can I get some?",
+        b5: "If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages.",    
+    support: "Support",
+        s1: "Where can I get some?",
+        c1: "To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental",
+        s2: "Where does it come from?",
+        c2: "Everyone realizes why a new common language would be desirable one could refuse to pay expensive translators.",
+        s3: "Why do we use it?",
+        c3: "Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary.",
+        s4: "Where can I get some?",
+        c4: "If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages.",
+        s5: "What is Lorem Ipsum?",
+        c5: "New common language will be more simple and regular than the existing European languages. It will be as simple as occidental.",    
+};
+
+let isTranslated = false;
+
+function toggleTranslation() {
+    document.querySelectorAll("[data-translate]").forEach(element => {
+        let key = element.getAttribute("data-translate");
+        
+        if (isTranslated) {
+            // Kembalikan ke teks asli (Bahasa Inggris) dari HTML
+            element.innerText = element.getAttribute("data-original-text");
+        } else {
+            // Simpan teks asli sebelum mengubahnya
+            if (!element.hasAttribute("data-original-text")) {
+                element.setAttribute("data-original-text", element.innerText);
+            }
+            // Ganti teks dengan terjemahan
+            element.innerText = translations[key] || element.innerText;
+        }
+    });
+
+    isTranslated = !isTranslated;
+}
+
+</script>
